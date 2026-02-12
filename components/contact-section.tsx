@@ -62,10 +62,10 @@ export function ContactSection() {
       })
 
       if (response.ok) {
-        setSubmitted(true)
-        setTimeout(() => setSubmitted(false), 3000)
-          // Reset form
-          (e.target as HTMLFormElement).reset()
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 3000);
+        // Reset form
+        (e.currentTarget as HTMLFormElement).reset()
       } else {
         const errorData = await response.json()
         alert(`Failed to send message: ${errorData.error || "Unknown error"}`)
