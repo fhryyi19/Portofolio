@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
-import { Github, Linkedin, Mail, MessageCircle, Send } from "lucide-react"
+import { Github, Instagram, Linkedin, Mail, MessageCircle, Send } from "lucide-react"
 import { useScrollReveal } from "@/hooks/use-scroll-reveal"
 
 const socials = [
@@ -29,16 +29,50 @@ const socials = [
     href: "https://linkedin.com/in/fahri",
     icon: <Linkedin size={20} />,
   },
+  {
+    label: "Instagram",
+    value: "@fhryyi19",
+    href: "https://instagram.com/fhryyi19",
+    icon: <Instagram size={20} />,
+  },
 ]
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
   const { ref, isVisible } = useScrollReveal()
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+
+    // Get form data
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        setTimeout(() => setSubmitted(false), 3000)
+          // Reset form
+          (e.target as HTMLFormElement).reset()
+      } else {
+        alert("Failed to send message. Please try again.")
+      }
+    } catch (error) {
+      console.error("Error:", error)
+      alert("Something went wrong. Please try again later.")
+    }
   }
 
   return (
@@ -97,6 +131,7 @@ export function ContactSection() {
               </label>
               <input
                 id="name"
+                name="name"
                 type="text"
                 required
                 placeholder="Your name"
@@ -113,6 +148,7 @@ export function ContactSection() {
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
                 required
                 placeholder="you@example.com"
@@ -129,6 +165,7 @@ export function ContactSection() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 required
                 rows={4}
                 placeholder="Your message..."
