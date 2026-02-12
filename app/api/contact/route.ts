@@ -18,8 +18,8 @@ export async function POST(req: Request) {
 
         // Email options
         const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER, // Send to yourself
+            from: 'muhammadfachrim236@gmail.com',
+            to: 'muhammadfachrim236@gmail.com', // Send to yourself
             replyTo: email,
             subject: `New Message from ${name} (${email})`,
             text: `
