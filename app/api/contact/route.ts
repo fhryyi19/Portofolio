@@ -42,7 +42,7 @@ export async function POST(req: Request) {
     } catch (error) {
         console.error('Error sending email:', error);
         return NextResponse.json(
-            { message: 'Failed to send email.' },
+            { error: error instanceof Error ? error.message : 'Unknown error' },
             { status: 500 }
         );
     }

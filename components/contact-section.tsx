@@ -67,7 +67,8 @@ export function ContactSection() {
           // Reset form
           (e.target as HTMLFormElement).reset()
       } else {
-        alert("Failed to send message. Please try again.")
+        const errorData = await response.json()
+        alert(`Failed to send message: ${errorData.error || "Unknown error"}`)
       }
     } catch (error) {
       console.error("Error:", error)
