@@ -9,8 +9,8 @@ export async function POST(req: Request) {
         const transporter = nodemailer.createTransport({
             service: 'gmail', // or use a custom SMTP service (e.g., SendGrid, Mailgun)
             auth: {
-                user: process.env.EMAIL_USER?.trim(),
-                pass: process.env.EMAIL_PASS?.trim(),
+                user: 'muhammadfachrim236@gmail.com',
+                pass: 'fsvljfkhgmuhvnwp', // Hardcoded temp for debugging
             },
             tls: {
                 rejectUnauthorized: false
