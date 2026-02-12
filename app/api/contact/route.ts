@@ -7,14 +7,13 @@ export async function POST(req: Request) {
 
         // Create a transporter
         const transporter = nodemailer.createTransport({
-            service: 'gmail', // or use a custom SMTP service (e.g., SendGrid, Mailgun)
+            host: 'smtp.gmail.com',
+            port: 465,
+            secure: true,
             auth: {
                 user: 'muhammadfachrim236@gmail.com',
-                pass: 'fsvljfkhgmuhvnwp', // Hardcoded temp for debugging
+                pass: 'fsvljfkhgmuhvnwp',
             },
-            tls: {
-                rejectUnauthorized: false
-            }
         });
 
         // Email options
